@@ -58,8 +58,25 @@ def compute_and_plot(fname, plt):
   # plot
   plt.plot([ml for (ml, _) in efficiencies], [e for (_, e) in efficiencies])
 
-if __name__ == "__main__":
+def t_hyphenate_1():
+  w = "hekjhsfsdhfsebwetrewthewbrtewewtrewbrt"
+  print(w)
+  print(hyphenate(w, 10))
 
+def t_compute_lines_1():
+  w = "hello hekjhsfsdhfsebwetrewthewbrtewewtrewbrt"
+  lines = compute_lines(w, 10)
+  print(w)
+  print(lines)
+
+def t_compute_lines_2():
+  w = "hekjhsfsdhfsebwetrewthewbrtewewtrewbrt"
+  lines = compute_lines(w, 10)
+  print(w)
+  print(lines)
+
+
+def_t_compute_and_plot_1():
   inputs = ["data/bolshevik.txt", "data/pigeons.txt"]
   fig = plt.figure()
   plt.xlabel("line length")
@@ -71,3 +88,7 @@ if __name__ == "__main__":
   
   plt.show()
   fig.savefig("plot.png", bbox_inches="tight")
+ 
+if __name__ == "__main__":
+  t_hyphenate_1()
+  t_compute_lines_1()
