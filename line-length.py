@@ -75,7 +75,7 @@ def t_compute_lines_2():
   t_compute_lines("hekjhsfsdhfsebwetrewthewbrtewewtrewbrt", 10)
 
 
-def_t_compute_and_plot_1():
+def t_compute_and_plot_1():
   inputs = ["data/bolshevik.txt", "data/pigeons.txt"]
   fig = plt.figure()
   plt.xlabel("line length")
