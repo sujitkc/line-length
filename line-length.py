@@ -10,7 +10,27 @@ def hyphenate(word, length):
     hwords = [word]
   return hwords
     
-def compute_lines(text, max_line_length):
+def compute_lines1(text, max_line_length):
+  words = text.split(" ")
+
+  lines = []
+  curr_line = ""
+  for word in words:
+    if(len(curr_line + word) > max_line_length):
+      if(curr_line != ""):
+        lines.append(curr_line.strip())
+        curr_line = ""
+      hwords = hyphenate(word, max_line_length)
+      for hw in hwords[:-1]:
+        lines.append(hw)
+      curr_line = hwords[-1]
+    else:
+      curr_line += (word + " ")
+  if(curr_line != ""):
+    lines.append(curr_line.strip())
+  return lines
+    
+def compute_lines2(text, max_line_length):
   words = text.split(" ")
 
   lines = []
@@ -31,6 +51,8 @@ def compute_lines(text, max_line_length):
   if(curr_line != ""):
     lines.append(curr_line.strip())
   return lines
+
+compute_lines = compute_lines2
 
 def compute_line_efficiency(text, max_line_length):
   lines = compute_lines(text, max_line_length) 
