@@ -9,50 +9,39 @@ def hyphenate(word, length):
   else:
     hwords = [word]
   return hwords
-    
-def compute_lines1(text, max_line_length):
-  words = text.split(" ")
+  
+def complete_line1(curr_line, lines, word, max_line_length):
+  if(curr_line != ""):
+    lines.append(curr_line.strip())
+  return 0
 
-  lines = []
-  curr_line = ""
-  for word in words:
-    if(len(curr_line + word) > max_line_length):
-      if(curr_line != ""):
-        lines.append(curr_line.strip())
+def complete_line2(curr_line, lines, word, max_line_length):
+  l = max_line_length - len(curr_line) - 1
+  w = word[:l] + "-"
+  curr_line += w
+  lines.append(curr_line)
+
+def make_compute_lines(complete_line):
+  def compute_lines(text, max_line_length):
+    words = text.split(" ")
+    lines = []
+    curr_line = ""
+    for word in words:
+      if(len(curr_line + word) > max_line_length):
+        l = complete_line(curr_line, lines, word, max_line_length)
         curr_line = ""
-      hwords = hyphenate(word, max_line_length)
-      for hw in hwords[:-1]:
-        lines.append(hw)
-      curr_line = hwords[-1]
-    else:
-      curr_line += (word + " ")
-  if(curr_line != ""):
-    lines.append(curr_line.strip())
-  return lines
-    
-def compute_lines2(text, max_line_length):
-  words = text.split(" ")
+        hwords = hyphenate(word[l:], max_line_length)
+        for hw in hwords[:-1]:
+          lines.append(hw)
+        curr_line = hwords[-1]
+      else:
+        curr_line += (word + " ")
+    if(curr_line != ""):
+      lines.append(curr_line.strip())
+    return lines
+  return compute_lines
 
-  lines = []
-  curr_line = ""
-  for word in words:
-    if(len(curr_line + word) > max_line_length):
-      l = max_line_length - len(curr_line)
-      w = word[:l - 1] + "-"
-      curr_line += w
-      lines.append(curr_line)
-      curr_line = ""
-      hwords = hyphenate(word[l - 1:], max_line_length)
-      for hw in hwords[:-1]:
-        lines.append(hw)
-      curr_line = hwords[-1]
-    else:
-      curr_line += (word + " ")
-  if(curr_line != ""):
-    lines.append(curr_line.strip())
-  return lines
-
-compute_lines = compute_lines2
+compute_lines = make_compute_lines(complete_line2)
 
 def compute_line_efficiency(text, max_line_length):
   lines = compute_lines(text, max_line_length) 
