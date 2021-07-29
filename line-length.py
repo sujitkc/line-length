@@ -63,17 +63,16 @@ def t_hyphenate_1():
   print(w)
   print(hyphenate(w, 10))
 
-def t_compute_lines_1():
-  w = "hello hekjhsfsdhfsebwetrewthewbrtewewtrewbrt"
-  lines = compute_lines(w, 10)
+def t_compute_lines(w, l):
+  lines = compute_lines(w, l)
   print(w)
   print(lines)
 
+def t_compute_lines_1():
+  t_compute_lines("hello hekjhsfsdhfsebwetrewthewbrtewewtrewbrt", 10)
+
 def t_compute_lines_2():
-  w = "hekjhsfsdhfsebwetrewthewbrtewewtrewbrt"
-  lines = compute_lines(w, 10)
-  print(w)
-  print(lines)
+  t_compute_lines("hekjhsfsdhfsebwetrewthewbrtewewtrewbrt", 10)
 
 
 def_t_compute_and_plot_1():
@@ -92,3 +91,4 @@ def_t_compute_and_plot_1():
 if __name__ == "__main__":
   t_hyphenate_1()
   t_compute_lines_1()
+  t_compute_lines_2()
