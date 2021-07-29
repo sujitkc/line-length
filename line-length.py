@@ -17,12 +17,13 @@ def compute_lines(text, max_line_length):
   curr_line = ""
   for word in words:
     if(len(curr_line + word) > max_line_length):
-      hwords = hyphenate(word, max_line_length)
-      print("hword = ", str(hwords))
-      curr_line += hwords[0]
+      l = max_line_length - len(curr_line)
+      w = word[:l - 1] + "-"
+      curr_line += w
       lines.append(curr_line)
       curr_line = ""
-      for hw in hwords[1:-1]:
+      hwords = hyphenate(word[l - 1:], max_line_length)
+      for hw in hwords[:-1]:
         lines.append(hw)
       curr_line = hwords[-1]
     else:
