@@ -12,26 +12,23 @@ def hyphenate(word, length):
     
 def compute_lines(text, max_line_length):
   words = text.split(" ")
-#  avg_wlen = sum([len(w) for w in words]) / len(words)
-#  print("Average word length = ", avg_wlen)
 
   lines = []
   curr_line = ""
   for word in words:
     if(len(curr_line + word) > max_line_length):
-      lines.append(curr_line.strip())
-      curr_line = ""
-    if(curr_line == "" and (len(word) > max_line_length)):
       hwords = hyphenate(word, max_line_length)
-      for hw in hwords[:-1]:
+      print("hword = ", str(hwords))
+      curr_line += hwords[0]
+      lines.append(curr_line)
+      curr_line = ""
+      for hw in hwords[1:-1]:
         lines.append(hw)
       curr_line = hwords[-1]
     else:
       curr_line += (word + " ")
   if(curr_line != ""):
     lines.append(curr_line.strip())
-#  print(lines)
-#  print(max_line_length, " : ", [len(line) for line in lines])
   return lines
 
 def compute_line_efficiency(text, max_line_length):
@@ -73,7 +70,6 @@ def t_compute_lines_1():
 
 def t_compute_lines_2():
   t_compute_lines("hekjhsfsdhfsebwetrewthewbrtewewtrewbrt", 10)
-
 
 def t_compute_and_plot_1():
   inputs = ["data/bolshevik.txt", "data/pigeons.txt"]
