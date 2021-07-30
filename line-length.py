@@ -34,8 +34,11 @@ def make_compute_lines(complete_line):
         for hw in hwords[:-1]:
           lines.append(hw)
         curr_line = hwords[-1]
-      else:
+      elif(len(curr_line + word) < max_line_length):
         curr_line += (word + " ")
+      else:
+        curr_line += word
+    
     if(curr_line != ""):
       lines.append(curr_line.strip())
     return lines
