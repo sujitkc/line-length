@@ -20,6 +20,7 @@ def complete_line2(curr_line, lines, word, max_line_length):
   w = word[:l] + "-"
   curr_line += w
   lines.append(curr_line)
+  return l
 
 def make_compute_lines(complete_line):
   def compute_lines(text, max_line_length):
