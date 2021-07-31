@@ -22,28 +22,33 @@ def hyphenate(line, words, MaxLength):
 def update1(lines, line, words, MaxLength):
   if(line == ""):
     newwords = hyphenate(line, words, MaxLength)
-    return loop(lines, line, newwords, MaxLength)
+    return lines, line, newwords
   else:
-    return loop(lines + [line], "", words, MaxLength)
+    return lines + [line], "", words
 
 def update2(lines, line, words, MaxLength):
   newwords = hyphenate(line, words, MaxLength)
-  return loop(lines, line, newwords, MaxLength)
+  return lines, line, newwords
 
 def make_loop(update):
   def loop(lines, line, words, MaxLength):
-    if(words == []):
-      if(line != ""):
-        return lines + [line]
-      return lines
-    if(is_addable(line, words[0], MaxLength)):
-      newline, newwords = add_word(line, words, MaxLength)
-      if(len(newline) == MaxLength):
-        return loop(lines + [newline], "", newwords, MaxLength)
+
+    while(True):
+      if(words == []):
+        if(line != ""):
+          return lines + [line]
+        return lines
+      if(is_addable(line, words[0], MaxLength)):
+        newline, newwords = add_word(line, words, MaxLength)
+        if(len(newline) == MaxLength):
+          lines, line, words = lines + [newline], "", newwords
+          continue
+        else:
+          lines, line, words = lines, newline, newwords
+          continue
       else:
-        return loop(lines, newline, newwords, MaxLength)
-    else:
-      return update(lines, line, words, MaxLength)
+        lines, line, words = update(lines, line, words, MaxLength)
+        continue
 
   return loop
 
