@@ -52,7 +52,7 @@ def make_loop(update):
 
   return loop
 
-loop = make_loop(update2)
+loop = make_loop(update1)
 
 def compute_lines(text, MaxLength):
   words = text.split(" ")

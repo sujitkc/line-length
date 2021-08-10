@@ -45,7 +45,7 @@ def make_compute_lines(complete_line):
     return lines
   return compute_lines
 
-compute_lines = make_compute_lines(complete_line2)
+compute_lines = make_compute_lines(complete_line1)
 
 def compute_line_efficiency(text, max_line_length):
   lines = compute_lines(text, max_line_length) 
