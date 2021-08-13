@@ -10,49 +10,49 @@ def hyphenate(word, length):
     hwords = [word]
   return hwords
   
-def complete_line1(curr_line, lines, word, max_line_length):
-  if(curr_line != ""):
-    lines.append(curr_line.strip())
+def complete_line1(line, lines, word, MaxLength):
+  if(line != ""):
+    lines.append(line.strip())
   return 0
 
-def complete_line2(curr_line, lines, word, max_line_length):
-  l = max_line_length - len(curr_line) - 1
+def complete_line2(line, lines, word, MaxLength):
+  l = MaxLength - len(line) - 1
   w = word[:l] + "-"
-  curr_line += w
-  lines.append(curr_line)
+  line += w
+  lines.append(line)
   return l
 
 def make_compute_lines(complete_line):
-  def compute_lines(text, max_line_length):
+  def compute_lines(text, MaxLength):
     words = text.split(" ")
     lines = []
-    curr_line = ""
+    line = ""
     for word in words:
-      if(len(curr_line + word) > max_line_length):
-        l = complete_line(curr_line, lines, word, max_line_length)
-        curr_line = ""
-        hwords = hyphenate(word[l:], max_line_length)
+      if(len(line + word) > MaxLength):
+        l = complete_line(line, lines, word, MaxLength)
+        line = ""
+        hwords = hyphenate(word[l:], MaxLength)
         for hw in hwords[:-1]:
           lines.append(hw)
-        curr_line = hwords[-1]
-      elif(len(curr_line + word) < max_line_length):
-        curr_line += (word + " ")
+        line = hwords[-1]
+      elif(len(line + word) < MaxLength):
+        line += (word + " ")
       else:
-        curr_line += word
+        line += word
     
-    if(curr_line != ""):
-      lines.append(curr_line.strip())
+    if(line != ""):
+      lines.append(line.strip())
     return lines
   return compute_lines
 
 compute_lines = make_compute_lines(complete_line1)
 
-def compute_line_efficiency(text, max_line_length):
-  lines = compute_lines(text, max_line_length) 
+def compute_line_efficiency(text, MaxLength):
+  lines = compute_lines(text, MaxLength) 
   line_lengths = [len(line) for line in lines]
   space_used = sum(line_lengths)
   num_lines = len(lines)
-  total_space = num_lines * max_line_length
+  total_space = num_lines * MaxLength
   efficiency = space_used / total_space
   return efficiency
 
@@ -87,20 +87,13 @@ def t_compute_lines_1():
 def t_compute_lines_2():
   t_compute_lines("hekjhsfsdhfsebwetrewthewbrtewewtrewbrt", 10)
 
-def t_compute_and_plot_1():
-  inputs = ["data/bolshevik.txt", "data/pigeons.txt"]
-  fig = plt.figure()
-  plt.xlabel("line length")
-  plt.ylabel("efficiency")
-
-  for inp in inputs:
-    print("Plotting ", inp)
-    compute_and_plot(inp, plt)
+def t_compute_lines_3():
+  text = "Removed the bug from linesi which was causing the first subword of the hyphenated word to appear twice."
+  print(text)
+  print(compute_lines(text, 10))
   
-  plt.show()
-  fig.savefig("plot.png", bbox_inches="tight")
- 
 if __name__ == "__main__":
   t_hyphenate_1()
   t_compute_lines_1()
   t_compute_lines_2()
+  t_compute_lines_3()
